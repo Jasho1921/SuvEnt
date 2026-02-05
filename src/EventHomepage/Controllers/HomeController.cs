@@ -10,11 +10,7 @@ public class HomeController : Controller
     
     public IActionResult Index()
     {
-        List<Event> events = [
-            new("SUVNET KRÖK OCH STÖK", "Stöka och kröka med valfria klasskamrater!", startDateTime: DateTime.Now.AddDays(10), endDateTime: DateTime.Now.AddDays(11), "YHB", 100),
-            new("Testa Festa", "Vi testar festa och koda samtidigt hehe", startDateTime: DateTime.Now.AddDays(74), endDateTime: DateTime.Now.AddDays(75), "Södra Torget", 419)];
-        
-        return View(events);
+        return View();
     }
 
     public IActionResult Privacy()
