@@ -1,0 +1,12 @@
+### POST - skapa nytt event
+POST http://localhost:5118/api/events
+Content-Type: application/json
+
+{
+    "name": "SUVNET KRÖK OCH STÖK",
+    "description": "Kom och stökröka med valfria klasskamrater/lärare",
+    "startDateTime": "2026-04-20T00:00:00",
+    "endDateTime": "2026-04-20T23:59:00",
+    "location": "YH i Borås",
+    "maxParticipants": 29
+}
