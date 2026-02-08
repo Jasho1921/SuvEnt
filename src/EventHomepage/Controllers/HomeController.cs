@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using EventHomepage.Models;
+using EventCore.Entities;
 using EventInfrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,42 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+    
+    // GET /home/create
+    public IActionResult Create()
+    {
+        return View();
+    }
+    
+    // POST /home/create
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateEventViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+        
+        if (model.EndDateTime <= model.StartDateTime)
+        {
+            ModelState.AddModelError("EndDateTime", "End time must be after start time.");
+            return View(model);
+            
+        }
+        
+        var evnt = new Event(
+            model.Name,
+            model.Description,
+            model.StartDateTime,
+            model.EndDateTime,
+            model.Location,
+            model.MaxParticipants
+        );
+        
+        _context.Events.Add(evnt);
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Index");
+        
     }
 }
 
